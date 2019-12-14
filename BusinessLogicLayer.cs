@@ -11,27 +11,19 @@ namespace Variant4TestingLoremIpsum
         public FeedPage GenerateParagraphs(int paragraphs, IWebDriver driver)
         {
             HomePage homePage = new HomePage(driver);
-            homePage.EnterNumberInInput(paragraphs);
-            homePage.ClickParagraphButton();
-            homePage.PressGenerateLoremIpsum();
-            return new FeedPage(driver);
+            homePage.EnterNumberInInput(paragraphs)
+                    .ClickParagraphButton();
+            FeedPage feedPage = homePage.PressGenerateLoremIpsum();
+            return feedPage;
         }
 
         public FeedPage GenerateCharacters(int characters, IWebDriver driver)
         {
             HomePage homePage = new HomePage(driver);
-            homePage.EnterNumberInInput(characters);
-            homePage.ClickCharactersRadioButton();
-            homePage.PressGenerateLoremIpsum();
-            return new FeedPage(driver);
-        }
-        
-        public FeedPage OpenFeedPage(IWebDriver driver)
-        {
-            HomePage homePage = new HomePage(driver);
-            homePage.PressGenerateLoremIpsum();
-            FeedPage feedPage = new FeedPage(driver);
-            return feedPage; 
+            homePage.EnterNumberInInput(characters)
+                    .ClickCharactersRadioButton();
+            FeedPage feedPage = homePage.PressGenerateLoremIpsum();
+            return feedPage;
         }
 
         public double CountWordsInParagraphs(int timesReload, IWebDriver driver)
@@ -40,9 +32,9 @@ namespace Variant4TestingLoremIpsum
             int paragraphs_Sum = 0;
             for (int i = 0; i < timesReload; i++)
             {
-                FeedPage feed = homePage.PressGenerateLoremIpsum();
-                paragraphs_Sum += feed.CountParagraphsContainingWord("lorem");
-                feed.GoBack();
+                FeedPage feedPage = homePage.PressGenerateLoremIpsum();
+                paragraphs_Sum += feedPage.CountParagraphsContainingWord("lorem");
+                feedPage.GoBack();
             }
             return (double)paragraphs_Sum / timesReload;
         }

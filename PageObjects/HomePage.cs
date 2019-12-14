@@ -1,80 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Collections.ObjectModel;
-using System.Text;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.PageObjects;
-//using DotNetSeleniumExtras.PageObjects;
-
-
+using Variant4TestingLoremIpsum.PageObjects1;
 
 namespace Variant4TestingLoremIpsum.PageObjects
 {
     public class HomePage
     {
         private IWebDriver driver;
-        private IWebElement NumberInput 
-        { 
-            get 
-            {
-                return driver.FindElement(By.XPath("//input[@id='amount']"));
-            }      
-        }
-
-        private IWebElement ParagraphButton 
-        { 
-            get
-            {
-                return driver.FindElement(By.XPath("//input[@id=\'paras\']"));
-            }
-        }
-
-        private IWebElement GenerateLoremIpsum
-        {
-            get
-            {
-                return driver.FindElement(By.XPath("//input[@id=\'generate\']"));
-            }
-        }
-
-        private IWebElement CharactersRadioButton 
-        {
-            get
-            {
-                return driver.FindElement(By.XPath("//input[@id=\'bytes\']"));
-            }
-        }
-
-        private IWebElement RussianLanguageButton
-        {
-            get
-            {
-                return driver.FindElement(By.XPath("//div[@id=\"Languages\"]/a[@class=\"ru\"]"));
-            }
-        }
-
+        private RadioButton radioButton;
+        private IWebElement RussianLanguageButton => driver.FindElement(By.XPath("//div[@id=\"Languages\"]/a[@class=\"ru\"]"));
 
         public HomePage(IWebDriver driver) 
         {
             this.driver = driver;
             driver.Navigate().GoToUrl("https://www.lipsum.com/");
+            radioButton = new RadioButton(driver);
         }
 
-        public void ClickCharactersRadioButton()
+        public HomePage ClickCharactersRadioButton()
         {
-            CharactersRadioButton.Click();
+            radioButton.ClickCharactersRadioButton();
+            return this;
         }
 
-        public void EnterNumberInInput(int number) 
+        public HomePage EnterNumberInInput(int number) 
         {
-            NumberInput.Clear();
-            NumberInput.SendKeys(number.ToString());
+            radioButton.EnterNumberInInput(number);
+            return this;
         }
 
-        public void ClickParagraphButton()
+        public HomePage ClickParagraphButton()
         {
-            ParagraphButton.Click();   
+            radioButton.ClickParagraphButton();
+            return this;
         }
 
         public void ClickRussianLanguageButton() 
@@ -84,7 +43,7 @@ namespace Variant4TestingLoremIpsum.PageObjects
 
         public FeedPage PressGenerateLoremIpsum()
         {
-            GenerateLoremIpsum.Click();
+            radioButton.PressGenerateLoremIpsum();
             return new FeedPage(driver);
         }
 

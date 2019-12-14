@@ -10,7 +10,7 @@ namespace Variant4TestingLoremIpsum.TestCases
     public class TestsClass
     {
         private static IWebDriver driver;
-        private BusinessLogicLayer bll = new BusinessLogicLayer();
+        //BBC variant 1 or 2
 
         [TestInitialize]
         public void Initialize()
@@ -28,30 +28,34 @@ namespace Variant4TestingLoremIpsum.TestCases
         [DataRow(10)]
         public void GenerateParagraphs (int number)
         {
-            Assert.AreEqual(number, bll.GenerateParagraphs(number, driver)
-                                       .CountParagraphsInText());
+            BusinessLogicLayer loremIpsumPage = new BusinessLogicLayer();
+            Assert.AreEqual(number, loremIpsumPage.GenerateParagraphs(number, driver)
+                                                  .CountParagraphsInText());
         }
 
         [DataTestMethod]
         [DataRow(500)]
         public void GenerateCharacters(int characters) 
         {
-            Assert.AreEqual(characters, bll.GenerateCharacters(characters, driver)
-                                           .CountCharacters());
+            BusinessLogicLayer loremIpsumPage = new BusinessLogicLayer();
+            Assert.AreEqual(characters, loremIpsumPage.GenerateCharacters(characters, driver)
+                                                      .CountCharacters());
         }
 
         [DataTestMethod]
         [DataRow(2, 1)]
         public void CountParagraphsContainingWord(int timesReload, int parameter) 
         {
-            Assert.IsTrue(bll.CountWordsInParagraphs(timesReload, driver) >= parameter);
+            BusinessLogicLayer loremIpsumPage = new BusinessLogicLayer();
+            Assert.IsTrue(loremIpsumPage.CountWordsInParagraphs(timesReload, driver) >= parameter);
         }
 
         [TestMethod]
         [DataRow("рыба")]
         public void TextContainsWord(string word) 
         {
-            Assert.IsTrue(bll.IfPageContainsWord(word, driver) > 0);
+            BusinessLogicLayer loremIpsumPage = new BusinessLogicLayer();
+            Assert.IsTrue(loremIpsumPage.IfPageContainsWord(word, driver) > 0);
         }
     }
 }

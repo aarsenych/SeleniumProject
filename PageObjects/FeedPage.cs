@@ -11,23 +11,10 @@ namespace Variant4TestingLoremIpsum.PageObjects
     public class FeedPage
     {
         private IWebDriver driver;
-
-        private ReadOnlyCollection <IWebElement> paragraphsInText 
-        {
-            get
-            {
-                return driver.FindElements(By.XPath("//*[@id=\'lipsum\']/p"));
-            }
-        }
-
-        private IWebElement LoremIpsumText
-        {
-            get
-            {
-                return driver.FindElement(By.XPath("//*[@id=\"lipsum\"]/p"));
-            }
-        }
-
+        private ReadOnlyCollection <IWebElement> ParagraphsInText => driver.FindElements(By.XPath("//*[@id=\'lipsum\']/p"));
+        
+        private IWebElement LoremIpsumText => driver.FindElement(By.XPath("//*[@id=\"lipsum\"]/p"));
+        
         public FeedPage(IWebDriver driver)
         {
             this.driver = driver;
@@ -35,7 +22,7 @@ namespace Variant4TestingLoremIpsum.PageObjects
 
         public int CountParagraphsInText() 
         {
-            int paragraphsCount = paragraphsInText.Count;
+            int paragraphsCount = ParagraphsInText.Count;
             return paragraphsCount;
         }
 
